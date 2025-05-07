@@ -1,0 +1,92 @@
+Example Question:
+const p = Promise.resolve(42);
+p.then(value => console.log(value));
+
+Question 1:
+// Your code here
+//const p = Promise.resolve('resolved');
+p.then(value => console.log(value));
+
+Question 2:
+// Your code here
+//const p = Promise.reject(new Error('Oops!'));
+p.catch(console.error);
+
+Question 3:
+// Your code here
+//const p = Promise.resolve({ id: 1, name: 'Alice' });
+p.then((value)=>console.log(value));
+
+Question 4:
+// Your code here
+//const p = Promise.resolve({ id: 1, name: 'Alice' });
+p.then(value => console.log(value['name']));
+
+Question 5:
+// Your code here
+//const p = Promise.reject(new Error('Invalid id'));
+p.catch((error)=>{console.error(error)});
+
+Question 6:
+// Your code here
+//const p = Promise.resolve(42);
+p.finally(()=>{console.log('Promise settled')}); 
+//or p.finally(console.log('Promise settled'))
+
+Question 7:
+// Your code here
+//const p = Promise.resolve(21);
+p.then(value=>console.log(value*2));
+
+Question 8:
+// Your code here
+//const p = Promise.reject(new Error('Invalid value'));
+p.catch(error => console.log(0)); 
+// must put error else will show 'uncaught error'
+
+Question 9:
+// Your code here
+//const promises = [
+  Promise.resolve(1),
+  Promise.resolve(2),
+  Promise.resolve(3)
+];
+Promise.all(promises).then((values)=> {
+    console.log(values);
+});
+
+
+Question 10:
+// Your code here
+//const promises = [
+  new Promise(resolve => setTimeout(() => resolve('a'), 100)), 
+  new Promise(resolve => setTimeout(() => resolve('b'), 50)),
+  new Promise(resolve => setTimeout(() => resolve('c'), 150))
+];
+Promise.race(promises).then((value)=>{
+    console.log(value);
+});
+
+Bonus Question:
+// Your code here
+//const p = Promise.resolve('World');
+const promise2 = new Promise(resolve => setTimeout(
+    () => resolve('Hello '), 1000
+));
+p.then( (value) => {
+    promise2.then((finalValue) => {
+        console.log(finalValue + value);
+    })
+}
+);
+
+// or create new promise within return:
+// p.then(value => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('Hello ' + value);
+    }, 1000);
+  });
+}).then(finalValue => {
+  console.log(finalValue); // Logs 'Hello World' after 1 second
+});
