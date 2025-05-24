@@ -1,24 +1,67 @@
 // root.js
 
-function PublicBlogPost() {
-
+function PublicBlogPost({ title, author, date, content }) {
+  return (
+    <div className="blog-post">
+      <h2>{title}</h2>
+      <p className="meta">
+        {author} on {date}
+      </p>
+      <p>{content}</p>
+    </div>
+  );
 }
 
-function PrivateBlogPost() {
-
+function PrivateBlogPost({ title, author, date }) {
+  return (
+    <div className="private-posts">
+      <h2>{title}</h2>
+      <p className="meta">
+        {author} on {date}
+      </p>
+      <p>The content of this post is private</p>
+    </div>
+  );
 }
 
-function BlogList() {
-
+function BlogList({ posts }) {
+  return (
+    <div className="blog-list">
+      {posts.map((post, index) =>
+        post.isPrivate ? (
+          <PrivateBlogPost
+            key={index}
+            title={post.title}
+            author={post.author}
+            date={post.date}
+          />
+        ) : (
+          <PublicBlogPost
+            key={index}
+            title={post.title}
+            author={post.author}
+            date={post.date}
+            content={post.content}
+          />
+        )
+      )}
+    </div>
+  );
 }
 
-function Header() {
 
+function Header({ title, tagline }) {
+  return (
+    <header>
+      <h1>{title}</h1>
+      <p>{tagline}</p>
+    </header>
+  );
 }
 
-function Footer() {
-
-};
+function Footer({ year }) {
+  return <footer>© {year} My Blog. All rights reserved.</footer>;
+}
 
 function App() {
   const blogPosts = [
@@ -58,6 +101,16 @@ function App() {
       isPrivate: false
     }
   ];
+
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <>
+      <Header title="My Blog" tagline="A blog about everything" />
+      <BlogList posts={blogPosts} />
+      <Footer year={currentYear} />
+    </>
+  );
 
 };
 
